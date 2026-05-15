@@ -25,6 +25,7 @@ public class Coche extends Vehiculo {
         this.cantidadPuertas = cantidadPuertas;
     }
 
+    @Override
     public void mostrarInformacion() {
         super.mostrarInformacion();
         System.out.println("Cantidad de puertas: " + cantidadPuertas);
