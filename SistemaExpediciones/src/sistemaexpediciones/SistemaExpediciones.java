@@ -18,104 +18,33 @@ public class SistemaExpediciones {
 
         do {
             System.out.println();
-            System.out.println("=== MENU DE GESTION DE EXPEDICIONES ESPACIALES ===");
-            System.out.println("1. Agregar nave");
-            System.out.println("2. Mostrar todas las naves");
-            System.out.println("3. Iniciar exploracion");
-            System.out.println("4. Mostrar naves ordenadas por nombre");
-            System.out.println("5. Mostrar naves ordenadas por anio de lanzamiento(desc)");
-            System.out.println("6. Mostrar naves ordenadas por tripulacion(desc)");
-            System.out.println("7. Salir");
+            Utilidades.mostrarTitulo("MENU DE GESTION DE EXPEDICIONES ESPACIALES");
+            Utilidades.mostrarOpcion("1. Agregar nave");
+            Utilidades.mostrarOpcion("2. Mostrar todas las naves");
+            Utilidades.mostrarOpcion("3. Iniciar exploracion");
+            Utilidades.mostrarOpcion("4. Mostrar naves ordenadas por nombre");
+            Utilidades.mostrarOpcion("5. Mostrar naves ordenadas por anio de lanzamiento(desc)");
+            Utilidades.mostrarOpcion("6. Mostrar naves ordenadas por tripulacion(desc)");
+            Utilidades.mostrarOpcion("7. Salir");
 
-            System.out.print("Seleccione una opcion: ");
-            while (!scanner.hasNextInt()) {
-
-                System.out.println("Error. Ingrese un número.");
-
-                scanner.nextLine();
-
-                System.out.print("Seleccione una opción: ");
-            }
-
-            opcion = scanner.nextInt();
+            opcion = Utilidades.pedirOpcionMenu(scanner, 1, 7);
 
             switch (opcion) {
 
                 case 1:
 
-                    System.out.println("--- Tipo de nave ---");
-                    System.out.println("1. Nave de exploracion");
-                    System.out.println("2. Carguero");
-                    System.out.println("3. Crucero estelar");
+                    Utilidades.mostrarTitulo("TIPO DE NAVE");
+                    Utilidades.mostrarOpcion("1. Nave de exploracion");
+                    Utilidades.mostrarOpcion("2. Carguero");
+                    Utilidades.mostrarOpcion("3. Crucero estelar");
 
-                    System.out.print("Seleccione tipo de nave: ");
-                    while (!scanner.hasNextInt()) {
+                    int tipo = Utilidades.pedirEnteroEnRango(scanner, "Seleccione el tipo de nave: ", 1, 3);
 
-                        System.out.println("Error. Ingrese un numero.");
+                    String nombre = Utilidades.pedirTexto(scanner, "Nombre: ");
 
-                        scanner.nextLine();
+                    int tripulacion = Utilidades.pedirEnteroPositivo(scanner, "Capacidad de tripulacion: ");
 
-                        System.out.print("Seleccione tipo de nave: ");
-                    }
-
-                    int tipo = scanner.nextInt();
-
-                    if (tipo < 1 || tipo > 3) {
-
-                        System.out.println("Tipo invalido.");
-
-                        break;
-                    }
-
-                    scanner.nextLine();
-
-                    System.out.print("Nombre: ");
-                    String nombre = scanner.nextLine();
-
-                    if (nombre.trim().isEmpty()) {
-
-                        System.out.println("Nombre invalido. Debe ingresar un nombre");
-
-                        break;
-                    }
-
-                    System.out.print("Capacidad de tripulacion: ");
-                    while (!scanner.hasNextInt()) {
-
-                        System.out.println("Error. Ingrese un numero.");
-
-                        scanner.nextLine();
-
-                        System.out.print("Capacidad de tripulacion: ");
-                    }
-
-                    int tripulacion = scanner.nextInt();
-
-                    System.out.print("Año de lanzamiento: ");
-                    while (!scanner.hasNextInt()) {
-
-                        System.out.println("Error. Ingrese un numero.");
-
-                        scanner.nextLine();
-
-                        System.out.print("Anio de lanzamiento: ");
-                    }
-
-                    int anio = scanner.nextInt();
-
-                    if (tripulacion <= 0) {
-
-                        System.out.println("Tripulacion invalida.");
-
-                        break;
-                    }
-
-                    if (anio < 1900) { // 1900 como año minimo
-
-                        System.out.println("Anio invalido.");
-
-                        break;
-                    }
+                    int anio = Utilidades.pedirEnteroEnRango(scanner, "Anio de lanzamiento", 1900, 4000);
 
                     Nave nave = null;
 
@@ -123,49 +52,19 @@ public class SistemaExpediciones {
 
                         case 1:
 
-                            scanner.nextLine();
+                            String mision = Utilidades.pedirTexto(scanner, "Tipo de mision: ");
 
-                            System.out.print("Tipo de mision: ");
-                            String mision = scanner.nextLine();
-
-                            if (mision.trim().isEmpty()) {
-
-                                System.out.println("Mision invalida.");
-
-                                break;
-                            } else if (!mision.equalsIgnoreCase("CARTOGRAFIA")
-                                    && !mision.equalsIgnoreCase("INVESTIGACION")
-                                    && !mision.equalsIgnoreCase("CONTACTO")) {
-
-                                System.out.println("Tipo de mision invalido.");
-
+                            if (!Utilidades.validarOpcionTexto3(mision, "CARTOGRAFIA", "INVESTIGACION", "CONTACTO")) {
+                                System.out.println("Tipo de mision invalida.");
                                 break;
                             }
 
                             nave = new NaveExploracion(nombre, tripulacion, anio, mision);
-
                             break;
 
                         case 2:
 
-                            System.out.print("Capacidad de carga (100 a 500): ");
-                            while (!scanner.hasNextInt()) {
-
-                                System.out.println("Error. Ingrese un número.");
-
-                                scanner.nextLine();
-
-                                System.out.print("Capacidad de carga: ");
-                            }
-
-                            int carga = scanner.nextInt();
-
-                            if (carga < 100 || carga > 500) {
-
-                                System.out.println("Carga invalida.");
-
-                                break;
-                            }
+                            int carga = Utilidades.pedirEnteroEnRango(scanner, "Capacidad de carga(100-500): ", 100, 500);
 
                             nave = new Carguero(nombre, tripulacion, anio, carga);
 
@@ -173,24 +72,7 @@ public class SistemaExpediciones {
 
                         case 3:
 
-                            System.out.print("Cantidad de pasajeros: ");
-                            while (!scanner.hasNextInt()) {
-
-                                System.out.println("Error. Ingrese un número.");
-
-                                scanner.nextLine();
-
-                                System.out.print("Cantidad de pasajeros: ");
-                            }
-
-                            int pasajeros = scanner.nextInt();
-
-                            if (pasajeros <= 0) {
-
-                                System.out.println("Cantidad invalida.");
-
-                                break;
-                            }
+                            int pasajeros = Utilidades.pedirEnteroPositivo(scanner, "Cantidad de pasajeros: ");
 
                             nave = new CruceroEstelar(nombre, tripulacion, anio, pasajeros);
 
@@ -202,11 +84,8 @@ public class SistemaExpediciones {
                     }
 
                     if (nave != null) {
-
                         agencia.agregarNave(nave);
-
                     }
-
                     break;
                 case 2:
                     agencia.mostrarNaves();
@@ -224,7 +103,7 @@ public class SistemaExpediciones {
                     agencia.ordenarPorTripulacionDesc();
                     break;
                 case 7:
-                    System.out.println("Programa finalizado");
+                    Utilidades.apagarPrograma("Programa finalizado");
                     break;
                 default:
                     System.out.println("Opcion invalida, ingrese 1-7");
