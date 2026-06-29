@@ -1,0 +1,8 @@
+=== REPORTE DE PRESTAMOS ACTIVOS ===
+
+ID: 1
+Socio: Juan Perez 30111222
+Libro: Rayuela
+Fecha prestamo: 2026-06-29
+Estado: Activo
+---------------------------------------------

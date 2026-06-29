@@ -2,12 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package sistemagestiontransporte;
+package bibliotecamodeloexamen;
 
-/**
- *
- * @author Maxi
- */
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -232,6 +229,19 @@ public class Utilidades {
     public static void apagarPrograma(String opcion) {
         System.out.println();
         System.out.println(opcion);
+    }
+
+    // Mostrar listas
+    public static <T> void mostrarLista(List<T> lista) {
+
+        if (lista.isEmpty()) {
+            System.out.println("No hay elementos para mostrar.");
+            return;
+        }
+
+        for (T elemento : lista) {
+            System.out.println(elemento);
+        }
     }
 
 }
